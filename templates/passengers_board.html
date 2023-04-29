@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Passengers Board</title>
+</head>
+<body>
+  <div class="passengers_board">
+     <h1>Passengers Board</h1>
+	<form id="passengers_board" action="{{ url_for('passengers_board') }}" method="post" autocomplete="off" style="text-align: center">
+		<label for="flightID">flightID</label>
+		<input type="text" id="flightID" name="flightID" required><br>
+
+
+
+		<button type="submit">Continue</button>
+		<button type="button" onclick="window.location.href='{{ url_for('home') }}'">Cancel</button>
+	</form>
+  </div>
+</body>
+</html>
+

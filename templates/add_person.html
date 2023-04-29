@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Add Person</title>
+</head>
+<body>
+  <div class="add_person">
+     <h1>Add Person</h1>
+	<form id="add_person" action="{{ url_for('add_person') }}" method="post" autocomplete="off" style="text-align: center">
+		<label for="personID">personID</label>
+		<input type="text" id="personID" name="personID" required><br>
+
+		<label for="firt_name">firt_name</label>
+		<input type="text" id="firt_name" name="firt_name" required><br>
+
+		<label for="last_name">last_name</label>
+		<input type="text" id="last_name" name="last_name" required><br>
+
+		<label for="locationID">LocationID:</label>
+                <input type="text" id="locationID" name="locationID" required><br>
+
+		<label for="taxID">taxID</label>
+		<input type="text" id="taxID" name="taxID" required><br>
+
+		<label for="experience">experience</label>
+		<input type="number" id="experience" name="experience"><br>
+
+		<label for="flying_airline">flying_airline</label>
+		<input type="text" id="flying_airline" name="flying_airline"><br>
+
+		<label for="flying_tail">flying_tail</label>
+		<input type="text" id="flying_tail" name="flying_tail"><br>
+
+		<label for="miles">miles</label>
+		<input type="number" id="miles" name="miles" value="miles"><br>
+
+		<button type="submit">Add</button>
+		<button type="button" onclick="window.location.href='{{ url_for('home') }}'">Cancel</button>
+	</form>
+  </div>
+</body>
+</html>
+

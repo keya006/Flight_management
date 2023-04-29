@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Assign Pilot</title>
+</head>
+<body>
+  <div class="assign_pilot">
+     <h1>Assign Pilot</h1>
+	<form id="assign_pilot" action="{{ url_for('assign_pilot') }}" method="post" autocomplete="off" style="text-align: center">
+		<label for="flightID">flightID</label>
+		<input type="text" id="flightID" name="flightID" required><br>
+
+
+		<button type="submit">Assign</button>
+		<button type="button" onclick="window.location.href='{{ url_for('home') }}'">Cancel</button>
+	</form>
+  </div>
+</body>
+</html>
+

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Passengers Disembark</title>
+</head>
+<body>
+  <div class="passengers_disembark">
+     <h1>Passengers Disembark</h1>
+	<form id="passengers_disembark" action="{{ url_for('passengers_disembark') }}" method="post" autocomplete="off" style="text-align: center">
+		<label for="flightID">flightID</label>
+		<input type="text" id="flightID" name="flightID" required><br>
+
+
+
+		<button type="submit">Continue</button>
+		<button type="button" onclick="window.location.href='{{ url_for('home') }}'">Cancel</button>
+	</form>
+  </div>
+</body>
+</html>
+

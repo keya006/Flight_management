@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Grant Pilot license</title>
+</head>
+<body>
+  <div class="grant_pilot_license">
+     <h1>Grant Pilot License</h1>
+	<form id="grant_pilot_license" action="{{ url_for('grant_pilot_license') }}" method="post" autocomplete="off" style="text-align: center">
+		<label for="personID">personID</label>
+		<input type="text" id="personID" name="personID" required><br>
+
+		<label for="license">license</label>
+		<input type="text" id="license" name="license" required><br>
+
+
+
+		<button type="submit">Grant</button>
+		<button type="button" onclick="window.location.href='{{ url_for('home') }}'">Cancel</button>
+	</form>
+  </div>
+</body>
+</html>
+

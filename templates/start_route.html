@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Start Route</title>
+</head>
+<body>
+  <div class="start_route">
+     <h1>Start Route</h1>
+	<form id="start_route" action="{{ url_for('start_route') }}" method="post" autocomplete="off" style="text-align: center">
+		<label for="routeID">routeID</label>
+		<input type="text" id="routeID" name="routeID" required><br>
+
+		<label for="legID">legID</label>
+		<input type="text" id="legID" name="legID" required><br>
+
+
+
+		<button type="submit">Assign</button>
+		<button type="button" onclick="window.location.href='{{ url_for('home') }}'">Cancel</button>
+	</form>
+  </div>
+</body>
+</html>
+

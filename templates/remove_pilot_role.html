@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Remove Pilot Role</title>
+</head>
+<body>
+  <div class="remove_pilot_role">
+     <h1>Remove Pilot Role</h1>
+	<form id="remove_pilot_role" action="{{ url_for('remove_pilot_role') }}" method="post" autocomplete="off" style="text-align: center">
+		<label for="personID">personID</label>
+		<input type="text" id="personID" name="personID" required><br>
+
+
+		<button type="submit">Remove Pilot</button>
+		<button type="button" onclick="window.location.href='{{ url_for('home') }}'">Cancel</button>
+	</form>
+  </div>
+</body>
+</html>
+

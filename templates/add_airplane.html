@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Add Airplane</title>
+</head>
+<body>
+  <div class="add_airplane">
+     <h1>Add Airplane</h1>
+	<form id="add_airplane" action="{{ url_for('add_airplane') }}" method="post" autocomplete="off" style="text-align: center">
+		<label for="airlineID">AirlineID:</label>
+		<input type="text" id="airlineID" name="airlineID" required><br>
+
+		<label for="tail_num">tail_num</label>
+		<input type="text" id="tail_num" name="tail_num" required><br>
+
+		<label for="seat_capacity">seat_capacity:</label>
+		<input type="number" id="seat_capacity" name="seat_capacity" required><br>
+
+		<label for="speed">Speed:</label>
+		<input type="number" id="speed" name="speed" required><br>
+
+		<label for="locationID">locationID:</label>
+		<input type="text" id="locationID" name="locationID" required><br>
+
+		<label for="plane_type">plane_type</label>
+		<input type="text" id="plane_type" name="plane_type" required><br>
+
+		<label for="skids">Skids:</label>
+		<input type="checkbox" id="skids" name="skids"><br>
+
+		<label for="propeller">Propeller:</label>
+		<input type="number" id="propeller" name="propeller" value="propeller"><br>
+
+		<label for="jet_engines">Jet Engines:</label>
+		 <input type="number" id="jet_engines" name="jet_engine" value="jet_engines"><br>
+
+		<button type="submit">Add</button>
+		<button type="button" onclick="window.location.href='{{ url_for('home') }}'">Cancel</button>
+	</form>
+</body>
+</html>
+
