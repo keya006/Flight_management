@@ -122,4 +122,21 @@ def register():
 
 @app.route('/add_airplane', methods=['GET', 'POST'])
 def add_airplane():
+    if if request.method == 'POST':
+        msg = ''
+        airlineID = request.form['airlineID']
+        tail_num = request.form['tail_num']
+        seat_capacity = request.form['seat_capacity']
+        speed = requst.form['speed']
+        locationID = request.form['locationID']
+        plane_type = request.form['plane_type']
+        skids = request.form['skids']
+        propellers = request.form['propellers']
+        jet_engines = request.form['jet_engines']
 
+        cursor = db_connection.cursor(MySQLdb.cursors.DictCursor)
+        cursor.callproc('add_airplane', [airlineID, tail_num, seat_capacity, speed, locationID, plane_type, skids, propellers, jet_engines])
+        result = cursor.fetchall()
+        return render_template(add_airplane.html, result=result, msg=msg)
+    else:
+        return redirect(url_for('home'))
