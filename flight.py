@@ -11,11 +11,11 @@ app.secret_key = ''
 # mysql = MySQL(app)
 
 #Trying to connect
-db_connection = MySQLdb.connect(host="127.0.0.1",
-						   user = "root",
-						   passwd = "cloud1515",
-						   db = "cs4400spring2020",
-						   port = 3306)
+db_connection = MySQLdb.connect(host="",
+						   user = "",
+						   passwd = "",
+						   db = "",
+						   port = )
 # If connection is not successful
 
 
@@ -119,3 +119,7 @@ def register():
 		cursor.close()
 		msg = 'You have successfully registered!'
 	return render_template('register.html', msg=msg)
+
+@app.route('/add_airplane', methods=['GET', 'POST'])
+def add_airplane():
+
