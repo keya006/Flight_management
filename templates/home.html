@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Home</title>
+		<meta charset="utf-8">
+	</head>
+	<body>
+		<div class="home main" style="text-align: center;">
+			<h1>Home</h1>
+            <a href="{{ url_for('add_airplane') }}">
+                <input type="button" value="Add Airplane" style="margin-left: 0px" id="home">
+            </a>
+            <a href="{{ url_for('add_airport') }}">
+                <input type="button" value="Add Airport" style="margin-left: 0px" id="home">
+            </a>
+            <a href="{{ url_for('add_person') }}">
+                <input type="button" value="Add Person" style="margin-left: 0px" id="home">
+            </a>
+            <a href="{{ url_for('grant_pilot_license')}}">
+            	<input type="button" value="Grant Pilot License" style="margin-left: 0px" id="home">
+            </a>
+            <a href="{{ url_for('offer_flight') }}">
+                <input type="button" value="Offer Flight" style="margin-left: 0px" id="home">
+            </a>
+            <a href="{{ url_for('purchase_ticket_and_seat') }}">
+            	<input type="button" value="Purchase Ticket And Seat" style="margin-left: 0px" id="home">
+            </a>
+            <a href="{{ url_for('add_update_leg') }}">
+            	<input type="button" value="Add Update Leg" style="margin-left: 0px" id="home">
+        	</a>
+	    <a href="{{ url_for('start_route') }}">
+                <input type="button" value="Start Route" style="margin-left: 0px" id="home">
+                </a>
+	   <a href="{{ url_for('extend_route') }}">
+                <input type="button" value="Extend Route" style="margin-left: 0px" id="home">
+                </a>
+	   <a href="{{ url_for('flight_landing') }}">
+                <input type="button" value="Flight Landing" style="margin-left: 0px" id="home">
+                </a>
+	   <a href="{{ url_for('flight_takeoff') }}">
+                <input type="button" value="flight_takeoff" style="margin-left: 0px" id="home">
+                </a>
+	   <a href="{{ url_for('passengers_board') }}">
+                <input type="button" value="Passengers Board" style="margin-left: 0px" id="home">
+                </a>
+	   <a href="{{ url_for('passengers_disembark') }}">
+                <input type="button" value="Passengers Disembark" style="margin-left: 0px" id="home">
+                </a>
+	   <a href="{{ url_for('assign_pilot') }}">
+                <input type="button" value="Assign Pilot" style="margin-left: 0px" id="home">
+                </a> 
+	   <a href="{{ url_for('recycle_crew') }}">
+                <input type="button" value="Recycle Crew" style="margin-left: 0px" id="home">
+                </a> 
+	   <a href="{{ url_for('retire_flight') }}">
+                <input type="button" value="Retire Flight" style="margin-left: 0px" id="home">
+                </a> 
+	   <a href="{{ url_for('remove_passenger_role') }}">
+                <input type="button" value="Remove Passenger Role" style="margin-left: 0px" id="home">
+                </a> 
+	   <a href="{{ url_for('remove_pilot_role') }}">
+                <input type="button" value="Remove Pilot Role" style="margin-left: 0px" id="home">
+           </a>
+	   <a href="{{ url_for('flights_in_the_air') }}">
+                <input type="button" value="Flights In The Air" style="margin-left: 0px" id="home">
+           </a>
+	   <a href="{{ url_for('flights_on_the_ground') }}">
+                <input type="button" value="Flights On The Ground" style="margin-left: 0px" id="home">
+           </a>
+	   <a href="{{ url_for('people_in_the_air') }}">
+                <input type="button" value="People In The Air" style="margin-left: 0px" id="home">
+           </a>
+	   <a href="{{ url_for('people_on_the_ground') }}">
+                <input type="button" value="People On The Ground" style="margin-left: 0px" id="home">
+           </a>
+	   <a href="{{ url_for('route_summary') }}">
+                <input type="button" value="Route Summary" style="margin-left: 0px" id="home">
+           </a>
+	   <a href="{{ url_for('alternative_airports') }}">
+                <input type="button" value="Alternative Airports" style="margin-left: 0px" id="home">
+           </a>
+	   <a href="{{ url_for('simulation_cycle') }}">
+                <input type="button" value="Simulation Cycle" style="margin-left: 0px" id="home">
+           </a>
+        	<a href="{{ url_for('logout') }}">
+            	<input type="button" value="Logout" style="margin-left: 0px" id="home">
+        	</a>
+		</div>
+	</body>
+</html>
