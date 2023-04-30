@@ -1,6 +1,5 @@
 from flask import Flask, render_template, request, redirect, url_for, session
 import hashlib
-# from flask_mysqldb import MySQL
 import MySQLdb
 import re
 import sys
@@ -16,7 +15,6 @@ db_connection = MySQLdb.connect(host="",
 						   passwd = "",
 						   db = "",
 						   port = )
-# If connection is not successful
 
 
 
@@ -46,6 +44,16 @@ def logout():
 	session.pop('loggedin', None)
         session.pop('username', None)
 	return redirect(url_for('login'))
+
+@app.route('/home')
+def home():
+    # Check if user is loggedin
+    if 'loggedin' in session:
+    	# User is loggedin show them the home page
+    	return render_template('home.html', username=session['username'], userType=session['userType'])
+    # User is not loggedin redirect to login page
+    return redirect(url_for('login'))
+    
 
 @app.route('/add_airplane', methods=['GET', 'POST'])
 def add_airplane():
