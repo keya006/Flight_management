@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>people_on_the_ground</title>
+</head>
+<body>
+    <h1>People On The Ground</h1>
+   <div style="text-align: -webkit-center; padding: 20px"> 
+    <table border="1" cellpadding="5" cellspacing="5" style="border-collapse: collapse; width: auto; margin: 20px">
+        <thead>
+            <tr>
+                <th>Departure</th>
+                <th>Location</th>
+                <th>Airport Name</th>
+                <th>City</th>
+                <th>State</th>
+                <th>Pilot Count</th>
+                <th>Passenger Count</th>
+		<th>People Count</th>
+		<th>Person List</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for result in results %}
+            <tr>
+                <td>{{ result[0] }}</td>
+                <td>{{ result[1] }}</td>
+                <td>{{ result[2] }}</td>
+                <td>{{ result[3] }}</td>
+                <td>{{ result[4] }}</td>
+                <td>{{ result[5] }}</td>
+                <td>{{ result[6] }}</td>
+		<td>{{ result[7] }}</td>
+		<td>{{ result[8] }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+   </div>
+</body>
+</html>

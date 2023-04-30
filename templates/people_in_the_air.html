@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>people_in_the_air</title>
+</head>
+<body>
+    <h1>People In The Air</h1>
+    <div style="text-align: -webkit-center; padding: 20px">
+    <table border="1" cellpadding="5" cellspacing="5" style="border-collapse: collapse; width: auto; margin: 20px">
+        <thead>
+            <tr>
+                <th>Departure</th>
+                <th>Arrival</th>
+                <th>Airplane count</th>
+                <th>Airplane List</th>
+                <th>Flight List</th>
+                <th>Earliest Arrival</th>
+                <th>Latest Arrival</th>
+		<th>Pilot Count</th>
+		<th>Passenger Count</th>
+		<th>Person Count</th>
+		<th>Person List</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for result in results %}
+            <tr>
+                <td>{{ result[0] }}</td>
+                <td>{{ result[1] }}</td>
+                <td>{{ result[2] }}</td>
+                <td>{{ result[3] }}</td>
+                <td>{{ result[4] }}</td>
+                <td>{{ result[5] }}</td>
+                <td>{{ result[6] }}</td>
+		<td>{{ result[7] }}</td>
+		<td>{{ result[8] }}</td>
+		<td>{{ result[9] }}</td>
+		<td>{{ result[10] }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    </div>
+</body>
+</html>
