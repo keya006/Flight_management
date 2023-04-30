@@ -395,13 +395,76 @@ def remove_pilot_role():
 
 
 
+@app.route('/flights_in_the_air', methods=['GET'])
+def flights_in_the_air():
+    cursor = db_connection.cursor(MySQLdb.cursors.DictCursor)
+    cursor.execute("SELECT * FROM flights_in_the_air")
+    results = cursor.fetchall()
+    
+    # Render the HTML template with the query results
+    return render_template('flights_in_the_air.html', results=results)
+
+
+@app.route('/flights_on_the_ground', methods=['GET'])
+def flights_on_the_ground():
+    cursor = db_connection.cursor(MySQLdb.cursors.DictCursor)
+    cursor.execute("SELECT * FROM flights_on_the_ground")
+    results = cursor.fetchall()
+
+    # Render the HTML template with the query results
+    return render_template('flights_on_the_ground.html', results=results)
+
+
+@app.route('/people_in_the_air', methods=['GET'])
+def people_in_the_air():
+    cursor = db_connection.cursor(MySQLdb.cursors.DictCursor)
+    cursor.execute("SELECT * FROM people_in_the_air")
+    results = cursor.fetchall()
+
+    # Render the HTML template with the query results
+    return render_template('people_in_the_air.html', results=results)
 
 
 
+@app.route('/people_on_the_ground', methods=['GET'])
+def people_on_the_ground():
+    cursor = db_connection.cursor(MySQLdb.cursors.DictCursor)
+    cursor.execute("SELECT * FROM people_on_the_ground")
+    results = cursor.fetchall()
+
+    # Render the HTML template with the query results
+    return render_template('people_on_the_ground.html', results=results)
+
+
+@app.route('/route_summary', methods=['GET'])
+def route_summary():
+    cursor = db_connection.cursor(MySQLdb.cursors.DictCursor)
+    cursor.execute("SELECT * FROM route_summary")
+    results = cursor.fetchall()
+
+    # Render the HTML template with the query results
+    return render_template('route_summary.html', results=results)
+
+
+@app.route('/alternative_airports', methods=['GET'])
+def alternative_airports():
+    cursor = db_connection.cursor(MySQLdb.cursors.DictCursor)
+    cursor.execute("SELECT * FROM alternative_airports")
+    results = cursor.fetchall()
+
+    # Render the HTML template with the query results
+    return render_template('alternative_airports.html', results=results)
 
 
 
+@app.route('/simulation_cycle', methods=['GET'])
+def simulation_cycle():
+    cursor = db_connection.cursor(MySQLdb.cursors.DictCursor)
+    cursor.execute("SELECT * FROM simulation_cycle")
+    results = cursor.fetchall()
 
+    # Render the HTML template with the query results
+    return render_template('simulation_cycle.html', results=results)
 
 
 
