@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>purchase_ticket_and_seat</title>
+</head>
+<body>
+    <h1>Purchase Ticket and Seat</h1>
+    <div style="text-align: -webkit-center; padding: 20px">
+	    {% if msg %}
+      <p>{{ msg }}</p>
+    {% endif %}
+    {% if result %}
+    <table border="1" cellpadding="5" cellspacing="5" style="border-collapse: collapse; width: auto; margin: 20px">
+        <thead>
+            <tr>
+		<th>ticketID</th>
+                <th>cost</th>
+		<th>carrier</th>
+		<th>customer</th>
+		<th>deplane_at</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for result in results %}
+            <tr>
+                <td>{{ result[0] }}</td>
+                <td>{{ result[1] }}</td>
+		<td>{{ result[2] }}</td>
+		<td>{{ result[3] }}</td>
+		<td>{{ result[4] }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% endif %}
+    </div>
+</body>
+</html>

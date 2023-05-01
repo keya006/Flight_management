@@ -132,7 +132,7 @@ def add_person():
 
     cursor.execute('SELECT * FROM person')
     result = cursor.fetchall()
-    return render_template(add_person1.html, result=result, msg=msg)
+    return render_template('add_person1.html', result=result, msg=msg)
 
 @app.route('/grant_pilot_license', methods=['GET', 'POST'])
 def grant_pilot_license():
@@ -147,7 +147,7 @@ def grant_pilot_license():
 
     cursor.execute('SELECT * FROM pilot')
     result = cursor.fetchall()
-    return render_template(grant_pilot_license1.html, result=result, msg=msg)
+    return render_template('grant_pilot_license1.html', result=result, msg=msg)
 
 
 @app.route('/offer_flight', methods=['GET', 'POST'])
@@ -175,7 +175,7 @@ def offer_flight():
 
     cursor.execute('SELECT * FROM flight')
     result = cursor.fetchall()
-    return render_template(offer_flight.html, result=result, msg=msg)
+    return render_template('offer_flight1.html', result=result, msg=msg)
 
 
 @app.route('/purchase_ticket_and_seat', methods=['GET', 'POST'])
@@ -205,7 +205,7 @@ def purchase_ticket_and_seat():
     cursor.execute('SELECT * FROM ticket')
     cursor.execute('SELECT * FROM ticket_seat')
     result = cursor.fetchall()
-    return render_template(purchase_ticket_and_seat.html, result=result, msg=msg)
+    return render_template('purchase_ticket_and_seat1.html', result=result, msg=msg)
 
 
 @app.route('/add_update_leg', methods=['GET', 'POST'])
@@ -230,7 +230,7 @@ def add_update_leg():
 
     cursor.execute('SELECT * FROM leg')
     result = cursor.fetchall()
-    return render_template(add_update_leg.html, result=result, msg=msg)
+    return render_template('add_update_leg1.html', result=result, msg=msg)
 
 
 @app.route('/start_route', methods=['GET', 'POST'])
@@ -245,9 +245,8 @@ def start_route():
     db_connection.commit()
 
     cursor.execute('SELECT * FROM route')
-    cursor.execute('SELECT * FROM route_path')
     result = cursor.fetchall()
-    return render_template(start_route.html, result=result, msg=msg)
+    return render_template('start_route1.html', result=result, msg=msg)
 
 
 @app.route('/extend_route', methods=['GET', 'POST'])
@@ -262,9 +261,8 @@ def extend_route():
     db_connection.commit()
 
     cursor.execute('SELECT * FROM route')
-    cursor.execute('SELECT * FROM route_path')
     result = cursor.fetchall()
-    return render_template(extend_route.html, result=result, msg=msg)
+    return render_template('extend_route1.html', result=result, msg=msg)
 
 @app.route('/flight_landing', methods=['GET', 'POST'])
 def flight_landing():
@@ -277,10 +275,8 @@ def flight_landing():
     db_connection.commit()
 
     cursor.execute('SELECT * FROM flight')
-    cursor.execute('SELECT * FROM pilot')
-    cursor.execute('SELECT * FROM passenger')
     result = cursor.fetchall()
-    return render_template(flight_landing.html, result=result, msg=msg)
+    return render_template('flight_landing1.html', result=result, msg=msg)
 
 
 @app.route('/flight_takeoff', methods=['GET', 'POST'])
@@ -295,7 +291,7 @@ def flight_takeoff():
 
     cursor.execute('SELECT * FROM flight')
     result = cursor.fetchall()
-    return render_template(flight_takeoff.html, result=result, msg=msg)
+    return render_template('flight_takeoff1.html', result=result, msg=msg)
 
 
 
@@ -311,7 +307,7 @@ def passengers_board():
 
     cursor.execute('SELECT * FROM person')
     result = cursor.fetchall()
-    return render_template(passengers_board.html, result=result, msg=msg)
+    return render_template('passengers_board1.html', result=result, msg=msg)
 
 
 
@@ -327,7 +323,7 @@ def passengers_disembark():
 
     cursor.execute('SELECT * FROM person')
     result = cursor.fetchall()
-    return render_template(passengers_disembark.html, result=result, msg=msg)
+    return render_template('passengers_disembark1.html', result=result, msg=msg)
 
 
 @app.route('/assign_pilot', methods=['GET', 'POST'])
@@ -344,7 +340,7 @@ def assign_pilot():
     cursor.execute('SELECT * FROM pilot')
     cursor.execute('SELECT * FROM person')
     result = cursor.fetchall()
-    return render_template(assign_pilot.html, result=result, msg=msg)
+    return render_template('assign_pilot1.html', result=result, msg=msg)
 
 
 @app.route('/recycle_crew', methods=['GET', 'POST'])
@@ -360,7 +356,7 @@ def recycle_crew():
     cursor.execute('SELECT * FROM pilot')
     cursor.execute('SELECT * FROM person')
     result = cursor.fetchall()
-    return render_template(recycle_crew.html, result=result, msg=msg)
+    return render_template('recycle_crew1.html', result=result, msg=msg)
 
 
 
@@ -377,7 +373,7 @@ def retire_flight():
 
     cursor.execute('SELECT * FROM flight')
     result = cursor.fetchall()
-    return render_template(retire_flight.html, result=result, msg=msg)
+    return render_template('retire_flight1.html', result=result, msg=msg)
 
 
 
@@ -394,9 +390,8 @@ def remove_passenger_role():
     db_connection.commit()
 
     cursor.execute('SELECT * FROM passenger')
-    cursor.execute('SELECT * FROM person')
     result = cursor.fetchall()
-    return render_template(remove_passenger_role.html, result=result, msg=msg)
+    return render_template('remove_passenger_role1.html', result=result, msg=msg)
 
 
 
@@ -413,9 +408,8 @@ def remove_pilot_role():
     db_connection.commit()
 
     cursor.execute('SELECT * FROM pilot')
-    cursor.execute('SELECT * FROM person')
     result = cursor.fetchall()
-    return render_template(remove_pilot_role.html, result=result, msg=msg)
+    return render_template('remove_pilot_role1.html', result=result, msg=msg)
 
 
 

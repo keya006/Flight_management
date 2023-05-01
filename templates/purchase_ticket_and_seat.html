@@ -30,6 +30,9 @@
 		<button type="submit">Continue</button>
 		<button type="button" onclick="window.location.href='{{ url_for('home') }}'">Cancel</button>
 	</form>
+	{% if msg %}
+      <p>{{ msg }}</p>
+    {% endif %}
   </div>
 </body>
 </html>

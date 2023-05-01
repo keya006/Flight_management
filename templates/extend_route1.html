@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>extend_route</title>
+</head>
+<body>
+    <h1>Extend Route</h1>
+    <div style "text-align: -webkit-center; padding: 20px">
+	    {% if msg %}
+      <p>{{ msg }}</p>
+    {% endif %}
+    {% if result %}
+    <table border="1" cellpadding="5" cellspacing="5" style="border-collapse: collapse; width: auto; margin: 20px">
+        <thead>
+            <tr>
+		<th>routeID</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for result in results %}
+            <tr>
+                <td>{{ result[0] }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% endif %}
+    </div>
+</body>
+</html>
