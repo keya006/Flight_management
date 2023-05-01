@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>flight_takeoff</title>
+</head>
+<body>
+    <h1>Flight Takeoff</h1>
+    <div style="text-align: -webkit-center; padding: 20px">
+	    {% if msg %}
+      <p>{{ msg }}</p>
+    {% endif %}
+    {% if result %}
+    <table border="1" cellpadding="5" cellspacing="5" style="border-collapse: collapse; width: auto; margin: 20px">
+        <thead>
+            <tr>
+		<th>flightID</th>
+                <th>routeID</th>
+		<th>support_airline</th>
+		<th>support_tail</th>
+		<th>progress</th>
+		<th>airplane_status</th>
+		<th>next_time</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for result in results %}
+            <tr>
+                <td>{{ result[0] }}</td>
+                <td>{{ result[1] }}</td>
+		<td>{{ result[2] }}</td>
+		<td>{{ result[3] }}</td>
+		<td>{{ result[4] }}</td>
+		<td>{{ result[5] }}</td>
+		<td>{{ result[6] }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% endif %}
+    </div>
+</body>
+</html>

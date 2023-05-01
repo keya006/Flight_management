@@ -145,7 +145,7 @@ def grant_pilot_license():
     cursor.callproc('grant_pilot_license', [personID, license])
     db_connection.commit()
 
-    cursor.execute('SELECT * FROM pilot')
+    cursor.execute('SELECT * FROM pilot_licenses')
     result = cursor.fetchall()
     return render_template('grant_pilot_license1.html', result=result, msg=msg)
 
@@ -203,7 +203,6 @@ def purchase_ticket_and_seat():
     db_connection.commit()
 
     cursor.execute('SELECT * FROM ticket')
-    cursor.execute('SELECT * FROM ticket_seat')
     result = cursor.fetchall()
     return render_template('purchase_ticket_and_seat1.html', result=result, msg=msg)
 
