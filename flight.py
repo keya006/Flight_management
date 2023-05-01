@@ -82,7 +82,7 @@ def add_airplane():
 
     cursor.execute('SELECT * FROM airplane')
     result = cursor.fetchall()
-    return render_template('add_airplane.html', result=result, msg=msg)
+    return render_template('add_airplane1.html', result=result, msg=msg)
 
 
 @app.route('/add_airport', methods=['GET', 'POST'])
@@ -101,7 +101,7 @@ def add_airport():
 
     cursor.execute('SELECT * FROM airport')
     result = cursor.fetchall()
-    return render_template(add_airport.html, result=result, msg=msg)
+    return render_template('add_airport1.html', result=result, msg=msg)
 
 @app.route('/add_person', methods=['GET', 'POST'])
 def add_person():
@@ -132,7 +132,7 @@ def add_person():
 
     cursor.execute('SELECT * FROM person')
     result = cursor.fetchall()
-    return render_template(add_person.html, result=result, msg=msg)
+    return render_template(add_person1.html, result=result, msg=msg)
 
 @app.route('/grant_pilot_license', methods=['GET', 'POST'])
 def grant_pilot_license():
@@ -147,7 +147,7 @@ def grant_pilot_license():
 
     cursor.execute('SELECT * FROM pilot')
     result = cursor.fetchall()
-    return render_template(grant_pilot_license.html, result=result, msg=msg)
+    return render_template(grant_pilot_license1.html, result=result, msg=msg)
 
 
 @app.route('/offer_flight', methods=['GET', 'POST'])
@@ -329,21 +329,6 @@ def passengers_disembark():
     result = cursor.fetchall()
     return render_template(passengers_disembark.html, result=result, msg=msg)
 
-@app.route('/assign_pilot', methods=['GET', 'POST'])
-def assign_pilot():
-
-    msg = ''
-    flightID = request.form['flightID']
-    personID = request.form['personID']
-
-    cursor = db_connection.cursor(MySQLdb.cursors.DictCursor)
-    cursor.callproc('assign_pilot', [flightID, personID])
-    db_connection.commit()
-
-    cursor.execute('SELECT * FROM pilot')
-    cursor.execute('SELECT * FROM person')
-    result = cursor.fetchall()
-    return render_template(assign_pilot.html, result=result, msg=msg)
 
 @app.route('/assign_pilot', methods=['GET', 'POST'])
 def assign_pilot():
