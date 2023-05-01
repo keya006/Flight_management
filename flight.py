@@ -1,12 +1,10 @@
 from flask import Flask, render_template, request, redirect, url_for, session
 import hashlib
 import MySQLdb
-import re
 import sys
 import json
 
 app = Flask(__name__)
-app.secret_key = ''
 # mysql = MySQL(app)
 
 #Trying to connect
@@ -44,7 +42,7 @@ def home():
     # Check if user is loggedin
     if 'loggedin' in session:
     	# User is loggedin show them the home page
-    	return render_template('home.html', username=session['username'], userType=session['userType'])
+    	return render_template('home.html')
     # User is not loggedin redirect to login page
     return redirect(url_for('login'))
     
@@ -76,13 +74,17 @@ def add_airplane():
     if msg:
         return render_template('add_airplane.html', msg=msg)
 
-    cursor = db_connection.cursor(MySQLdb.cursors.DictCursor)
-    cursor.callproc('add_airplane', [airlineID, tail_num, seat_capacity, speed, locationID, plane_type, skids, propellers, jet_engines])
-    db_connection.commit()
-
-    cursor.execute('SELECT * FROM airplane')
-    result = cursor.fetchall()
-    return render_template('add_airplane1.html', result=result, msg=msg)
+    try:
+        cursor = db_connection.cursor(MySQLdb.cursors.DictCursor)
+        cursor.callproc('add_airplane', [airlineID, tail_num, seat_capacity, speed, locationID, plane_type, skids, propellers, jet_engines])
+        db_connection.commit()
+        cursor.execute('SELECT * FROM airplane')
+        result = cursor.fetchall()
+    except:
+        msg += 'Cursor not created error'
+        return render_template('add_airplane.html', msg=msg)
+    else:
+        return render_template('add_airplane1.html', result=result, msg=msg)
 
 
 @app.route('/add_airport', methods=['GET', 'POST'])
