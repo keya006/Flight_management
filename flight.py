@@ -10,11 +10,11 @@ app.secret_key = ''
 # mysql = MySQL(app)
 
 #Trying to connect
-db_connection = MySQLdb.connect(host="",
-						   user = "",
-						   passwd = "",
-						   db = "",
-						   port = )
+try:
+    
+    db_connection = MySQLdb.connect(host="", user = "", passwd = "", db = "", port = )
+except:
+    print("Failled to authenticate connection")
 
 
 
@@ -28,10 +28,6 @@ def login():
 		username = request.form['username']
 		password = request.form['password']
 
-		# Create session data, we can access this data in other routes
-		session['loggedin'] = True
-		session['username'] = account['username']
-		session['userType'] = account['userType']
 		# Redirect to home page
 		return redirect(url_for('home'))
 	else:
@@ -41,8 +37,6 @@ def login():
 
 @app.route('/logout', methods=['GET'])
 def logout():
-	session.pop('loggedin', None)
-        session.pop('username', None)
 	return redirect(url_for('login'))
 
 @app.route('/home')
@@ -62,12 +56,25 @@ def add_airplane():
     airlineID = request.form['airlineID']
     tail_num = request.form['tail_num']
     seat_capacity = request.form['seat_capacity']
-    speed = requst.form['speed']
+    speed = request.form['speed']
     locationID = request.form['locationID']
     plane_type = request.form['plane_type']
     skids = request.form['skids']
     propellers = request.form['propellers']
     jet_engines = request.form['jet_engines']
+
+    # validate input values
+    if not seat_capacity.isdigit() or int(seat_capacity) < 0:
+        msg += 'Seat capacity should be a positive integer.<br>'
+    if not speed.isdigit() or int(speed) < 0:
+        msg += 'Speed should be a positive integer.<br>'
+    if not propellers.isdigit() or int(propellers) < 0:
+        msg += 'Propellers should be a positive integer.<br>'
+    if not jet_engines.isdigit() or int(jet_engines) < 0:
+        msg += 'Jet engines should be a positive integer.<br>'
+
+    if msg:
+        return render_template('add_airplane.html', msg=msg)
 
     cursor = db_connection.cursor(MySQLdb.cursors.DictCursor)
     cursor.callproc('add_airplane', [airlineID, tail_num, seat_capacity, speed, locationID, plane_type, skids, propellers, jet_engines])
@@ -75,7 +82,8 @@ def add_airplane():
 
     cursor.execute('SELECT * FROM airplane')
     result = cursor.fetchall()
-    return render_template(add_airplane.html, result=result, msg=msg)
+    return render_template('add_airplane.html', result=result, msg=msg)
+
 
 @app.route('/add_airport', methods=['GET', 'POST'])
 def add_airport():
@@ -84,7 +92,7 @@ def add_airport():
     airportID = request.form['airportID']
     airport_name = request.form['airport_name']
     city = request.form['city']
-    state = requst.form['state']
+    state = request.form['state']
     locationID = request.form['locationID']
 
     cursor = db_connection.cursor(MySQLdb.cursors.DictCursor)
@@ -108,6 +116,15 @@ def add_person():
     flying_airline = request.form['flying_airline']
     flying_tail = request.form['flying_tail']
     miles = request.form['miles']
+
+    # validate input values
+    if not experience.isdigit() or int(experience) < 0:
+        msg += 'Experience should be a positive integer.<br>'
+    if not miles.isdigit() or int(miles) < 0:
+        msg += 'miles should be a positive integer.<br>'
+
+    if msg:
+        return render_template('add_person.html', msg=msg)
 
     cursor = db_connection.cursor(MySQLdb.cursors.DictCursor)
     cursor.callproc('add_person', [personID, first_name, last_name, locationID, taxID, experience, flying_airline, flying_tail, miles])
@@ -145,6 +162,13 @@ def offer_flight():
     airplane_status = request.form['airplane_status']
     next_time = request.form['next_time']
 
+    # validate input values
+    if not progress.isdigit() or int(progress) < 0:
+        msg += 'progress should be a positive integer.<br>'
+
+    if msg:
+        return render_template('offer_flight.html', msg=msg)
+
     cursor = db_connection.cursor(MySQLdb.cursors.DictCursor)
     cursor.callproc('offer_flight', [flightID, routeID, support_airline, support_tail, progress, airplane_status, next_time])
     db_connection.commit()
@@ -165,6 +189,15 @@ def purchase_ticket_and_seat():
     deplane_at = request.form['deplane_at']
     seat_number = request.form['seat_number']
 
+    # validate input values
+    if not cost.isdigit() or int(cost) < 0:
+        msg += 'cost should be a positive integer.<br>'
+    if not seat_number.isdigit() or int(seat_number) < 0:
+        msg += 'seat number should be a positive integer.<br>'    
+
+    if msg:
+        return render_template('purchase_ticket_and_seat.html', msg=msg)
+
     cursor = db_connection.cursor(MySQLdb.cursors.DictCursor)
     cursor.callproc('purchase_ticket_and_seat', [ticketID, cost, carrier, customer, deplane_at, seat_number])
     db_connection.commit()
@@ -183,6 +216,13 @@ def add_update_leg():
     distance = request.form['distance']
     departure = request.form['departure']
     arrival = request.form['arrival']
+
+    # validate input values
+    if not distance.isdigit() or int(distance) < 0:
+        msg += 'distance should be a positive integer.<br>'
+
+    if msg:
+        return render_template('add_update_leg.html', msg=msg)
 
     cursor = db_connection.cursor(MySQLdb.cursors.DictCursor)
     cursor.callproc('add_update_leg', [personID, license])
