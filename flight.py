@@ -23,35 +23,9 @@ pool = mysql.connector.pooling.MySQLConnectionPool(pool_name="mypool", pool_size
 
 
 
-@app.route('/', methods=['GET', 'POST'])
-def login():
-    t
-    msg = ''
-    # Making Cursor Object For Query Execution
-    if request.method == 'POST' and 'username' in request.form and 'password' in request.form:
-	# Create variables for easy access
-	username = request.form['username']
-	password = request.form['password']
-
-	# Redirect to home page
-	return redirect(url_for('home'))
-        # Account doesnt exist or username/password incorrect
-    else:
-        msg = 'Incorrect username/password!'
-	return render_template('index.html', msg=msg)
-
-@app.route('/logout', methods=['GET'])
-def logout():
-    return redirect(url_for('login'))
-
-@app.route('/home')
+@app.route('/home', methods=['GET'])
 def home():
-    # Check if user is loggedin
-    if 'loggedin' in session:
-    	# User is loggedin show them the home page
-    	return render_template('home.html')
-    # User is not loggedin redirect to login page
-    return redirect(url_for('login'))
+    return render_template('home.html')
     
 
 @app.route('/add_airplane', methods=['GET', 'POST'])
