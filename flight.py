@@ -4,6 +4,7 @@ import mysql.connector
 import mysql.connector.pooling
 import sys
 import json
+import jinja2
 
 app = Flask(__name__)
 # mysql = MySQL(app)
