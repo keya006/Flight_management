@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for, session
 import hashlib
-import MySQLdb
+import mysql.connector
+import mysql.connector.pooling
 import sys
 import json
 
@@ -8,11 +9,15 @@ app = Flask(__name__)
 # mysql = MySQL(app)
 
 #Trying to connect
-try:
-    
-    db_connection = MySQLdb.connect(host="", user = "", passwd = "", db = "", port = )
-except:
-    print("Failled to authenticate connection")
+config = {
+  'user': 'root',
+  'password': 'rasna123',
+  'host': '127.0.0.1',
+  'database': 'flight_management',
+  'raise_on_warnings': True
+}
+
+pool = mysql.connector.pooling.MySQLConnectionPool(pool_name="mypool", pool_size=7, **config)
 
 
 
@@ -75,11 +80,15 @@ def add_airplane():
         return render_template('add_airplane.html', msg=msg)
 
     try:
-        cursor = db_connection.cursor(MySQLdb.cursors.DictCursor)
+        db_connection = pool.get_connection()
+        cursor = db_connection.cursor()
         cursor.callproc('add_airplane', [airlineID, tail_num, seat_capacity, speed, locationID, plane_type, skids, propellers, jet_engines])
         db_connection.commit()
         cursor.execute('SELECT * FROM airplane')
         result = cursor.fetchall()
+           # Close the cursor
+        cursor.close()
+        db_connection.close()
     except:
         msg += 'Cursor not created error'
         return render_template('add_airplane.html', msg=msg)
@@ -97,12 +106,15 @@ def add_airport():
     state = request.form['state']
     locationID = request.form['locationID']
 
-    cursor = db_connection.cursor(MySQLdb.cursors.DictCursor)
+    db_connection = pool.get_connection()
+    cursor = db_connection.cursor()
     cursor.callproc('add_airport', [airportID, airport_name, city, state, locationID])
     db_connection.commit()
 
     cursor.execute('SELECT * FROM airport')
     result = cursor.fetchall()
+    cursor.close()
+    db_connection.close()
     return render_template('add_airport1.html', result=result, msg=msg)
 
 @app.route('/add_person', methods=['GET', 'POST'])
@@ -128,12 +140,15 @@ def add_person():
     if msg:
         return render_template('add_person.html', msg=msg)
 
-    cursor = db_connection.cursor(MySQLdb.cursors.DictCursor)
+    db_connection = pool.get_connection()
+    cursor = db_connection.cursor()
     cursor.callproc('add_person', [personID, first_name, last_name, locationID, taxID, experience, flying_airline, flying_tail, miles])
     db_connection.commit()
 
     cursor.execute('SELECT * FROM person')
     result = cursor.fetchall()
+    cursor.close()
+    db_connection.close()
     return render_template('add_person1.html', result=result, msg=msg)
 
 @app.route('/grant_pilot_license', methods=['GET', 'POST'])
@@ -143,12 +158,15 @@ def grant_pilot_license():
     personID = request.form['personID']
     license = request.form['license']
 
-    cursor = db_connection.cursor(MySQLdb.cursors.DictCursor)
+    db_connection = pool.get_connection()
+    cursor = db_connection.cursor()
     cursor.callproc('grant_pilot_license', [personID, license])
     db_connection.commit()
 
     cursor.execute('SELECT * FROM pilot_licenses')
     result = cursor.fetchall()
+    cursor.close()
+    db_connection.close()
     return render_template('grant_pilot_license1.html', result=result, msg=msg)
 
 
@@ -171,12 +189,15 @@ def offer_flight():
     if msg:
         return render_template('offer_flight.html', msg=msg)
 
-    cursor = db_connection.cursor(MySQLdb.cursors.DictCursor)
+    db_connection = pool.get_connection()
+    cursor = db_connection.cursor()
     cursor.callproc('offer_flight', [flightID, routeID, support_airline, support_tail, progress, airplane_status, next_time])
     db_connection.commit()
 
     cursor.execute('SELECT * FROM flight')
     result = cursor.fetchall()
+    cursor.close()
+    db_connection.close()
     return render_template('offer_flight1.html', result=result, msg=msg)
 
 
@@ -200,12 +221,15 @@ def purchase_ticket_and_seat():
     if msg:
         return render_template('purchase_ticket_and_seat.html', msg=msg)
 
-    cursor = db_connection.cursor(MySQLdb.cursors.DictCursor)
+    db_connection = pool.get_connection()
+    cursor = db_connection.cursor()
     cursor.callproc('purchase_ticket_and_seat', [ticketID, cost, carrier, customer, deplane_at, seat_number])
     db_connection.commit()
 
     cursor.execute('SELECT * FROM ticket')
     result = cursor.fetchall()
+    cursor.close()
+    db_connection.close()
     return render_template('purchase_ticket_and_seat1.html', result=result, msg=msg)
 
 
@@ -225,12 +249,15 @@ def add_update_leg():
     if msg:
         return render_template('add_update_leg.html', msg=msg)
 
-    cursor = db_connection.cursor(MySQLdb.cursors.DictCursor)
+    db_connection = pool.get_connection()
+    cursor = db_connection.cursor()
     cursor.callproc('add_update_leg', [personID, license])
     db_connection.commit()
 
     cursor.execute('SELECT * FROM leg')
     result = cursor.fetchall()
+    cursor.close()
+    db_connection.close()
     return render_template('add_update_leg1.html', result=result, msg=msg)
 
 
@@ -241,12 +268,15 @@ def start_route():
     routeID = request.form['routeID']
     legID = request.form['legID']
 
-    cursor = db_connection.cursor(MySQLdb.cursors.DictCursor)
+    db_connection = pool.get_connection()
+    cursor = db_connection.cursor()
     cursor.callproc('start_route', [routeID, legID])
     db_connection.commit()
 
     cursor.execute('SELECT * FROM route')
     result = cursor.fetchall()
+    cursor.close()
+    db_connection.close()
     return render_template('start_route1.html', result=result, msg=msg)
 
 
@@ -257,12 +287,15 @@ def extend_route():
     routeID = request.form['routeID']
     legID = request.form['legID']
 
-    cursor = db_connection.cursor(MySQLdb.cursors.DictCursor)
+    db_connection = pool.get_connection()
+    cursor = db_connection.cursor()
     cursor.callproc('extend_route', [routeID, legID])
     db_connection.commit()
 
     cursor.execute('SELECT * FROM route')
     result = cursor.fetchall()
+    cursor.close()
+    db_connection.close()
     return render_template('extend_route1.html', result=result, msg=msg)
 
 @app.route('/flight_landing', methods=['GET', 'POST'])
@@ -271,12 +304,15 @@ def flight_landing():
     msg = ''
     flightID = request.form['flightID']
 
-    cursor = db_connection.cursor(MySQLdb.cursors.DictCursor)
+    db_connection = pool.get_connection()
+    cursor = db_connection.cursor()
     cursor.callproc('flight_landing', [flightID])
     db_connection.commit()
 
     cursor.execute('SELECT * FROM flight')
     result = cursor.fetchall()
+    cursor.close()
+    db_connection.close()
     return render_template('flight_landing1.html', result=result, msg=msg)
 
 
@@ -286,12 +322,15 @@ def flight_takeoff():
     msg = ''
     flightID = request.form['flightID']
 
-    cursor = db_connection.cursor(MySQLdb.cursors.DictCursor)
+    db_connection = pool.get_connection()
+    cursor = db_connection.cursor()
     cursor.callproc('flight_takeoff', [flightID])
     db_connection.commit()
 
     cursor.execute('SELECT * FROM flight')
     result = cursor.fetchall()
+    cursor.close()
+    db_connection.close()
     return render_template('flight_takeoff1.html', result=result, msg=msg)
 
 
@@ -302,12 +341,15 @@ def passengers_board():
     msg = ''
     flightID = request.form['flightID']
 
-    cursor = db_connection.cursor(MySQLdb.cursors.DictCursor)
+    db_connection = pool.get_connection()
+    cursor = db_connection.cursor()
     cursor.callproc('passengers_board', [flightID])
     db_connection.commit()
 
     cursor.execute('SELECT * FROM person')
     result = cursor.fetchall()
+    cursor.close()
+    db_connection.close()
     return render_template('passengers_board1.html', result=result, msg=msg)
 
 
@@ -318,12 +360,15 @@ def passengers_disembark():
     msg = ''
     flightID = request.form['flightID']
 
-    cursor = db_connection.cursor(MySQLdb.cursors.DictCursor)
+    db_connection = pool.get_connection()
+    cursor = db_connection.cursor()
     cursor.callproc('passengers_disembark', [flightID])
     db_connection.commit()
 
     cursor.execute('SELECT * FROM person')
     result = cursor.fetchall()
+    cursor.close()
+    db_connection.close()
     return render_template('passengers_disembark1.html', result=result, msg=msg)
 
 
@@ -334,12 +379,15 @@ def assign_pilot():
     flightID = request.form['flightID']
     personID = request.form['personID']
 
-    cursor = db_connection.cursor(MySQLdb.cursors.DictCursor)
+    db_connection = pool.get_connection()
+    cursor = db_connection.cursor()
     cursor.callproc('assign_pilot', [flightID, personID])
     db_connection.commit()
 
     cursor.execute('SELECT * FROM pilot')
     result = cursor.fetchall()
+    cursor.close()
+    db_connection.close()
     return render_template('assign_pilot1.html', result=result, msg=msg)
 
 
@@ -349,12 +397,15 @@ def recycle_crew():
     msg = ''
     flightID = request.form['flightID']
 
-    cursor = db_connection.cursor(MySQLdb.cursors.DictCursor)
+    db_connection = pool.get_connection()
+    cursor = db_connection.cursor()
     cursor.callproc('recycle_crew', [flightID])
     db_connection.commit()
 
     cursor.execute('SELECT * FROM pilot')
     result = cursor.fetchall()
+    cursor.close()
+    db_connection.close()
     return render_template('recycle_crew1.html', result=result, msg=msg)
 
 
@@ -366,12 +417,15 @@ def retire_flight():
     msg = ''
     flightID = request.form['flightID']
 
-    cursor = db_connection.cursor(MySQLdb.cursors.DictCursor)
+    db_connection = pool.get_connection()
+    cursor = db_connection.cursor()
     cursor.callproc('retire_flight', [flightID])
     db_connection.commit()
 
     cursor.execute('SELECT * FROM flight')
     result = cursor.fetchall()
+    cursor.close()
+    db_connection.close()
     return render_template('retire_flight1.html', result=result, msg=msg)
 
 
@@ -384,12 +438,15 @@ def remove_passenger_role():
     msg = ''
     personID = request.form['personID']
 
-    cursor = db_connection.cursor(MySQLdb.cursors.DictCursor)
+    db_connection = pool.get_connection()
+    cursor = db_connection.cursor()
     cursor.callproc('remove_passenger_role', [personID])
     db_connection.commit()
 
     cursor.execute('SELECT * FROM passenger')
     result = cursor.fetchall()
+    cursor.close()
+    db_connection.close()
     return render_template('remove_passenger_role1.html', result=result, msg=msg)
 
 
@@ -401,13 +458,15 @@ def remove_pilot_role():
 
     msg = ''
     personID = request.form['personID']
-
-    cursor = db_connection.cursor(MySQLdb.cursors.DictCursor)
+    db_connection = pool.get_connection()
+    cursor = db_connection.cursor()
     cursor.callproc('remove_pilot_role', [personID])
     db_connection.commit()
 
     cursor.execute('SELECT * FROM pilot')
     result = cursor.fetchall()
+    cursor.close()
+    db_connection.close()
     return render_template('remove_pilot_role1.html', result=result, msg=msg)
 
 
@@ -415,9 +474,12 @@ def remove_pilot_role():
 
 @app.route('/flights_in_the_air', methods=['GET'])
 def flights_in_the_air():
-    cursor = db_connection.cursor(MySQLdb.cursors.DictCursor)
+    db_connection = pool.get_connection()
+    cursor = db_connection.cursor()
     cursor.execute("SELECT * FROM flights_in_the_air")
     results = cursor.fetchall()
+    cursor.close()
+    db_connection.close()
     
     # Render the HTML template with the query results
     return render_template('flights_in_the_air.html', results=results)
@@ -425,9 +487,12 @@ def flights_in_the_air():
 
 @app.route('/flights_on_the_ground', methods=['GET'])
 def flights_on_the_ground():
-    cursor = db_connection.cursor(MySQLdb.cursors.DictCursor)
+    db_connection = pool.get_connection()
+    cursor = db_connection.cursor()
     cursor.execute("SELECT * FROM flights_on_the_ground")
     results = cursor.fetchall()
+    cursor.close()
+    db_connection.close()
 
     # Render the HTML template with the query results
     return render_template('flights_on_the_ground.html', results=results)
@@ -435,9 +500,12 @@ def flights_on_the_ground():
 
 @app.route('/people_in_the_air', methods=['GET'])
 def people_in_the_air():
-    cursor = db_connection.cursor(MySQLdb.cursors.DictCursor)
+    db_connection = pool.get_connection()
+    cursor = db_connection.cursor()
     cursor.execute("SELECT * FROM people_in_the_air")
     results = cursor.fetchall()
+    cursor.close()
+    db_connection.close()
 
     # Render the HTML template with the query results
     return render_template('people_in_the_air.html', results=results)
@@ -446,9 +514,12 @@ def people_in_the_air():
 
 @app.route('/people_on_the_ground', methods=['GET'])
 def people_on_the_ground():
-    cursor = db_connection.cursor(MySQLdb.cursors.DictCursor)
+    db_connection = pool.get_connection()
+    cursor = db_connection.cursor()
     cursor.execute("SELECT * FROM people_on_the_ground")
     results = cursor.fetchall()
+    cursor.close()
+    db_connection.close()
 
     # Render the HTML template with the query results
     return render_template('people_on_the_ground.html', results=results)
@@ -456,9 +527,12 @@ def people_on_the_ground():
 
 @app.route('/route_summary', methods=['GET'])
 def route_summary():
-    cursor = db_connection.cursor(MySQLdb.cursors.DictCursor)
+    db_connection = pool.get_connection()
+    cursor = db_connection.cursor()
     cursor.execute("SELECT * FROM route_summary")
     results = cursor.fetchall()
+    cursor.close()
+    db_connection.close()
 
     # Render the HTML template with the query results
     return render_template('route_summary.html', results=results)
@@ -466,9 +540,12 @@ def route_summary():
 
 @app.route('/alternative_airports', methods=['GET'])
 def alternative_airports():
-    cursor = db_connection.cursor(MySQLdb.cursors.DictCursor)
+    db_connection = pool.get_connection()
+    cursor = db_connection.cursor()
     cursor.execute("SELECT * FROM alternative_airports")
     results = cursor.fetchall()
+    cursor.close()
+    db_connection.close()
 
     # Render the HTML template with the query results
     return render_template('alternative_airports.html', results=results)
@@ -479,10 +556,13 @@ def alternative_airports():
 def simulation_cycle():
     msg = ''
     try:
-        cursor = db_connection.cursor(MySQLdb.cursors.DictCursor)
+        db_connection = pool.get_connection()
+        cursor = db_connection.cursor()
         cursor.callproc('simulation_cycle')
         db_connection.commit()
         result = cursor.fetchall()
+        cursor.close()
+        db_connection.close()
     except:
         msg =+ 'Error in cursor and db_connection'
         return render_template('simulation_cycle.html', msg=msg)
