@@ -25,22 +25,24 @@ pool = mysql.connector.pooling.MySQLConnectionPool(pool_name="mypool", pool_size
 
 @app.route('/', methods=['GET', 'POST'])
 def login():
-	msg = ''
-	# Making Cursor Object For Query Execution
-	if request.method == 'POST' and 'username' in request.form and 'password' in request.form:
-		# Create variables for easy access
-		username = request.form['username']
-		password = request.form['password']
+    t
+    msg = ''
+    # Making Cursor Object For Query Execution
+    if request.method == 'POST' and 'username' in request.form and 'password' in request.form:
+	# Create variables for easy access
+	username = request.form['username']
+	password = request.form['password']
 
-		# Redirect to home page
-		return redirect(url_for('home'))
-            # Account doesnt exist or username/password incorrect
+	# Redirect to home page
+	return redirect(url_for('home'))
+        # Account doesnt exist or username/password incorrect
+    else:
         msg = 'Incorrect username/password!'
 	return render_template('index.html', msg=msg)
 
 @app.route('/logout', methods=['GET'])
 def logout():
-	return redirect(url_for('login'))
+    return redirect(url_for('login'))
 
 @app.route('/home')
 def home():
@@ -54,7 +56,6 @@ def home():
 
 @app.route('/add_airplane', methods=['GET', 'POST'])
 def add_airplane():
-
     msg = ''
     airlineID = request.form['airlineID']
     tail_num = request.form['tail_num']
@@ -153,7 +154,6 @@ def add_person():
 
 @app.route('/grant_pilot_license', methods=['GET', 'POST'])
 def grant_pilot_license():
-
     msg = ''
     personID = request.form['personID']
     license = request.form['license']
