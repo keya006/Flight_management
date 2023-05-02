@@ -339,7 +339,6 @@ def assign_pilot():
     db_connection.commit()
 
     cursor.execute('SELECT * FROM pilot')
-    cursor.execute('SELECT * FROM person')
     result = cursor.fetchall()
     return render_template('assign_pilot1.html', result=result, msg=msg)
 
@@ -355,7 +354,6 @@ def recycle_crew():
     db_connection.commit()
 
     cursor.execute('SELECT * FROM pilot')
-    cursor.execute('SELECT * FROM person')
     result = cursor.fetchall()
     return render_template('recycle_crew1.html', result=result, msg=msg)
 
@@ -479,12 +477,17 @@ def alternative_airports():
 
 @app.route('/simulation_cycle', methods=['GET'])
 def simulation_cycle():
-    cursor = db_connection.cursor(MySQLdb.cursors.DictCursor)
-    cursor.execute("SELECT * FROM simulation_cycle")
-    results = cursor.fetchall()
-
-    # Render the HTML template with the query results
-    return render_template('simulation_cycle.html', results=results)
+    msg = ''
+    try:
+        cursor = db_connection.cursor(MySQLdb.cursors.DictCursor)
+        cursor.callproc('simulation_cycle')
+        db_connection.commit()
+        result = cursor.fetchall()
+    except:
+        msg =+ 'Error in cursor and db_connection'
+        return render_template('simulation_cycle.html', msg=msg)
+    else:
+        return render_template('simulation_cycle1.html', **result)
 
 
 
