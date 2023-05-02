@@ -6,7 +6,7 @@ import sys
 import json
 import jinja2
 
-app = Flask(__name__)
+app = Flask(__name__, template_folder='../templates')
 # mysql = MySQL(app)
 
 #Trying to connect
