@@ -28,7 +28,7 @@ def home():
     return render_template('home.html')
     
 
-@app.route('/add_airplane', methods=['GET', 'POST'])
+@app.route('/add_airplane', methods=['POST'])
 def add_airplane():
     msg = ''
     airlineID = request.form['airlineID']
@@ -71,7 +71,7 @@ def add_airplane():
         return render_template('add_airplane1.html', result=result, msg=msg)
 
 
-@app.route('/add_airport', methods=['GET', 'POST'])
+@app.route('/add_airport', methods=['POST'])
 def add_airport():
 
     msg = ''
@@ -92,7 +92,7 @@ def add_airport():
     db_connection.close()
     return render_template('add_airport1.html', result=result, msg=msg)
 
-@app.route('/add_person', methods=['GET', 'POST'])
+@app.route('/add_person', methods=['POST'])
 def add_person():
 
     msg = ''
@@ -126,7 +126,7 @@ def add_person():
     db_connection.close()
     return render_template('add_person1.html', result=result, msg=msg)
 
-@app.route('/grant_pilot_license', methods=['GET', 'POST'])
+@app.route('/grant_pilot_license', methods=['POST'])
 def grant_pilot_license():
     msg = ''
     personID = request.form['personID']
@@ -144,7 +144,7 @@ def grant_pilot_license():
     return render_template('grant_pilot_license1.html', result=result, msg=msg)
 
 
-@app.route('/offer_flight', methods=['GET', 'POST'])
+@app.route('/offer_flight', methods=['POST'])
 def offer_flight():
 
     msg = ''
@@ -175,7 +175,7 @@ def offer_flight():
     return render_template('offer_flight1.html', result=result, msg=msg)
 
 
-@app.route('/purchase_ticket_and_seat', methods=['GET', 'POST'])
+@app.route('/purchase_ticket_and_seat', methods=['POST'])
 def purchase_ticket_and_seat():
 
     msg = ''
@@ -207,7 +207,7 @@ def purchase_ticket_and_seat():
     return render_template('purchase_ticket_and_seat1.html', result=result, msg=msg)
 
 
-@app.route('/add_update_leg', methods=['GET', 'POST'])
+@app.route('/add_update_leg', methods=['POST'])
 def add_update_leg():
 
     msg = ''
@@ -235,7 +235,7 @@ def add_update_leg():
     return render_template('add_update_leg1.html', result=result, msg=msg)
 
 
-@app.route('/start_route', methods=['GET', 'POST'])
+@app.route('/start_route', methods=['POST'])
 def start_route():
 
     msg = ''
@@ -254,7 +254,7 @@ def start_route():
     return render_template('start_route1.html', result=result, msg=msg)
 
 
-@app.route('/extend_route', methods=['GET', 'POST'])
+@app.route('/extend_route', methods=['POST'])
 def extend_route():
 
     msg = ''
@@ -272,7 +272,7 @@ def extend_route():
     db_connection.close()
     return render_template('extend_route1.html', result=result, msg=msg)
 
-@app.route('/flight_landing', methods=['GET', 'POST'])
+@app.route('/flight_landing', methods=['POST'])
 def flight_landing():
 
     msg = ''
@@ -290,7 +290,7 @@ def flight_landing():
     return render_template('flight_landing1.html', result=result, msg=msg)
 
 
-@app.route('/flight_takeoff', methods=['GET', 'POST'])
+@app.route('/flight_takeoff', methods=['POST'])
 def flight_takeoff():
 
     msg = ''
@@ -309,7 +309,7 @@ def flight_takeoff():
 
 
 
-@app.route('/passengers_board', methods=['GET', 'POST'])
+@app.route('/passengers_board', methods=['POST'])
 def passengers_board():
 
     msg = ''
@@ -328,7 +328,7 @@ def passengers_board():
 
 
 
-@app.route('/passengers_disembark', methods=['GET', 'POST'])
+@app.route('/passengers_disembark', methods=['POST'])
 def passengers_disembark():
 
     msg = ''
@@ -346,7 +346,7 @@ def passengers_disembark():
     return render_template('passengers_disembark1.html', result=result, msg=msg)
 
 
-@app.route('/assign_pilot', methods=['GET', 'POST'])
+@app.route('/assign_pilot', methods=['POST'])
 def assign_pilot():
 
     msg = ''
@@ -365,7 +365,7 @@ def assign_pilot():
     return render_template('assign_pilot1.html', result=result, msg=msg)
 
 
-@app.route('/recycle_crew', methods=['GET', 'POST'])
+@app.route('/recycle_crew', methods=['POST'])
 def recycle_crew():
 
     msg = ''
@@ -385,7 +385,7 @@ def recycle_crew():
 
 
 
-@app.route('/retire_flight', methods=['GET', 'POST'])
+@app.route('/retire_flight', methods=['POST'])
 def retire_flight():
 
     msg = ''
@@ -406,7 +406,7 @@ def retire_flight():
 
 
 
-@app.route('/remove_passenger_role', methods=['GET', 'POST'])
+@app.route('/remove_passenger_role', methods=['POST'])
 def remove_passenger_role():
 
     msg = ''
@@ -427,7 +427,7 @@ def remove_passenger_role():
 
 
 
-@app.route('/remove_pilot_role', methods=['GET', 'POST'])
+@app.route('/remove_pilot_role', methods=['POST'])
 def remove_pilot_role():
 
     msg = ''
@@ -526,7 +526,7 @@ def alternative_airports():
 
 
 
-@app.route('/simulation_cycle', methods=['GET'])
+@app.route('/simulation_cycle', methods=['POST'])
 def simulation_cycle():
     msg = ''
     try:
