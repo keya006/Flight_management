@@ -34,10 +34,9 @@ def login():
 
 		# Redirect to home page
 		return redirect(url_for('home'))
-	else:
             # Account doesnt exist or username/password incorrect
-            msg = 'Incorrect username/password!'
-	    return render_template('index.html', msg=msg)
+        msg = 'Incorrect username/password!'
+	return render_template('index.html', msg=msg)
 
 @app.route('/logout', methods=['GET'])
 def logout():
